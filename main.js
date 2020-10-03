@@ -15,40 +15,53 @@ model.forEach(block => {
     let html = '';
 
     if(block.type === 'title'){
-        html = `
-            <div class="row">
-                <div class="col-sm">
-                    <h1>${block.value}</h1>
-                </div>
-            </div>
-        `
+        html = title(block);
     }
     else if(block.type === 'text'){
-        html = `
-            <div class="row">
-                <div class="col-sm">
-                    <p>${block.value}</p>
-                </div>
-            </div>  
-        `
+        html = text(block);
     }
     else if(block.type === 'column'){
-        html = `
-            <div class="row">
-                <div class="col-sm">
-                    ${block.value[0]}
-                </div>
-
-                <div class="col-sm">
-                    ${block.value[1]}
-                </div>
-
-                <div class="col-sm">
-                    ${block.value[2]}
-                </div>
-            </div>
-        `
+        html = column(block);
     }
 
     $site.insertAdjacentHTML('beforeend', html);
-})
+});
+
+function title(block){
+    return `
+        <div class="row">
+            <div class="col-sm">
+                <h1>${block.value}</h1>
+            </div>
+        </div>
+    `;
+}
+
+function text(block){
+    return `
+        <div class="row">
+            <div class="col-sm">
+                <p>${block.value}</p>
+            </div>
+        </div>  
+    `
+}
+
+
+function column(block){
+    return `
+        <div class="row">
+            <div class="col-sm">
+                ${block.value[0]}
+            </div>
+
+            <div class="col-sm">
+                ${block.value[1]}
+            </div>
+
+            <div class="col-sm">
+                ${block.value[2]}
+            </div>
+        </div>
+    `;
+}
