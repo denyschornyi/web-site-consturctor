@@ -117,7 +117,13 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"main.js":[function(require,module,exports) {
+})({"model.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.model = void 0;
 var model = [{
   type: 'title',
   value: 'Hello from JS world'
@@ -131,22 +137,17 @@ var model = [{
   type: 'img',
   value: '../src/assets/img.png'
 }];
-var $site = document.querySelector('#site');
-model.forEach(function (block) {
-  var html = '';
+exports.model = model;
+},{}],"templates.js":[function(require,module,exports) {
+"use strict";
 
-  if (block.type === 'title') {
-    html = title(block);
-  } else if (block.type === 'text') {
-    html = text(block);
-  } else if (block.type === 'column') {
-    html = column(block);
-  } else if (block.type === 'img') {
-    html = img(block);
-  }
-
-  $site.insertAdjacentHTML('beforeend', html);
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.title = title;
+exports.text = text;
+exports.column = column;
+exports.img = img;
 
 function title(block) {
   return "\n        <div class=\"row\">\n            <div class=\"col-sm\">\n                <h1>".concat(block.value, "</h1>\n            </div>\n        </div>\n    ");
@@ -166,7 +167,31 @@ function column(block) {
 function img(block) {
   return "\n        <div class=\"row\">\n            <img src=\"".concat(block.value, "\" alt=\"img\" />\n        </div>\n    ");
 }
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"main.js":[function(require,module,exports) {
+"use strict";
+
+var _model = require("./model");
+
+var _templates = require("./templates");
+
+var $site = document.querySelector('#site');
+
+_model.model.forEach(function (block) {
+  var html = '';
+
+  if (block.type === 'title') {
+    html = (0, _templates.title)(block);
+  } else if (block.type === 'text') {
+    html = (0, _templates.text)(block);
+  } else if (block.type === 'column') {
+    html = (0, _templates.column)(block);
+  } else if (block.type === 'img') {
+    html = (0, _templates.img)(block);
+  }
+
+  $site.insertAdjacentHTML('beforeend', html);
+});
+},{"./model":"model.js","./templates":"templates.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -194,7 +219,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60758" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60896" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
