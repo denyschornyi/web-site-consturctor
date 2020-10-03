@@ -49,19 +49,17 @@ function text(block){
 
 
 function column(block){
+    let html = '';
+    block.value.forEach(el => {
+        html += `
+        <div class="col-sm">
+            ${el}
+        </div>
+    `
+    })
     return `
         <div class="row">
-            <div class="col-sm">
-                ${block.value[0]}
-            </div>
-
-            <div class="col-sm">
-                ${block.value[1]}
-            </div>
-
-            <div class="col-sm">
-                ${block.value[2]}
-            </div>
+            ${html}
         </div>
     `;
 }
