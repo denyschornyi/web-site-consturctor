@@ -117,13 +117,20 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"model.js":[function(require,module,exports) {
+})({"assets/img.png":[function(require,module,exports) {
+module.exports = "/img.cee0b723.png";
+},{}],"model.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.model = void 0;
+
+var _img = _interopRequireDefault(require("./assets/img.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var model = [{
   type: 'title',
   value: 'Hello from JS world'
@@ -135,10 +142,10 @@ var model = [{
   value: ['11111111', '22222222', '33333333']
 }, {
   type: 'img',
-  value: '../src/assets/img.png'
+  value: _img.default
 }];
 exports.model = model;
-},{}],"utils.js":[function(require,module,exports) {
+},{"./assets/img.png":"assets/img.png"}],"utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -174,9 +181,9 @@ function text(block) {
 
 function column(block) {
   var html = block.value.map(function (el) {
-    return "<div class=\"col-sm\">".concat(el, "</div>");
+    return (0, _utils.col)(el);
   });
-  return (0, _utils.row)("".concat(html.join('')));
+  return (0, _utils.row)(html.join(''));
 }
 
 function img(block) {

@@ -8,10 +8,9 @@ function text(block){
     return row(col(`<p>${block.value}</p>`));
 }
 
-
 function column(block){
-    let html = block.value.map(el => `<div class="col-sm">${el}</div>`);
-    return row(`${html.join('')}`);
+    let html = block.value.map(el => col(el));
+    return row(html.join(''));
 }
 
 function img(block){
