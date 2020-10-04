@@ -136,7 +136,12 @@ var model = [{
   value: 'Constructor to page on Pure JavaScritp',
   options: {
     tag: 'h2',
-    styles: 'background: linear-gradient(to right, #ff0099, #493240); color: #fff; text-align: center; padding: 1.5rem;'
+    styles: {
+      background: "linear-gradient(to right, #ff0099, #493240)",
+      color: '#fff',
+      padding: '1.5rem',
+      'text-align': 'center'
+    }
   }
 }, {
   type: 'text',
@@ -157,6 +162,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.row = row;
 exports.col = col;
+exports.css = css;
 
 function row(content) {
   var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -165,6 +171,14 @@ function row(content) {
 
 function col(content) {
   return "<div class=\"col-sm\">".concat(content, "</div>");
+}
+
+function css(styles) {
+  var keys = Object.keys(styles);
+  var array = keys.map(function (key) {
+    return "".concat(key, ": ").concat(styles[key]);
+  });
+  return array.join(';');
 }
 },{}],"templates.js":[function(require,module,exports) {
 "use strict";
@@ -181,7 +195,7 @@ function title(block) {
       _block$options$tag = _block$options.tag,
       tag = _block$options$tag === void 0 ? 'h1' : _block$options$tag,
       styles = _block$options.styles;
-  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")), styles);
+  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
 }
 
 function text(block) {
