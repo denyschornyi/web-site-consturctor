@@ -174,11 +174,16 @@ function col(content) {
 }
 
 function css(styles) {
-  var keys = Object.keys(styles);
-  var array = keys.map(function (key) {
+  // const keys = ;
+  // const array = keys.map(key => {
+  //     return 
+  // })
+  // return array.join(';');
+  var toString = function toString(key) {
     return "".concat(key, ": ").concat(styles[key]);
-  });
-  return array.join(';');
+  };
+
+  return Object.keys(styles).map(toString).join(';');
 }
 },{}],"templates.js":[function(require,module,exports) {
 "use strict";
