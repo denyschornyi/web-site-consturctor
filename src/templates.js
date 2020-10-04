@@ -6,16 +6,19 @@ function title(block){
 }
 
 function text(block){
-    return row(col(`<p>${block.value}</p>`));
+    const {tag = 'p', styles} = block.options;
+    return row(col(`<${tag}>${block.value}</${tag}>`), css(styles));
 }
 
 function column(block){
+    const { styles } = block.options;
     let html = block.value.map(col).join('');
-    return row(html);
+    return row(html, css(styles));
 }
 
 function img(block){
-    return row(`<img src="${block.value}" alt="img" />`);
+    const{tag='h1', styles} = block.options;
+    return row(`<${tag} src="${block.value}" alt="img" />`, css(styles));
 }
 
 
