@@ -1,7 +1,9 @@
 import {row, col} from './utils'
 
 function title(block){
-    return row(col(`<h1>${block.value}</h1>`));
+    let tag = block.options.tag;
+    let styles = block.options.styles;
+    return row(col(`<${tag}>${block.value}</${tag}>`), styles);
 }
 
 function text(block){
@@ -9,8 +11,8 @@ function text(block){
 }
 
 function column(block){
-    let html = block.value.map(el => col(el));
-    return row(html.join(''));
+    let html = block.value.map(col).join('');
+    return row(html);
 }
 
 function img(block){

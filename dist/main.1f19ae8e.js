@@ -133,7 +133,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var model = [{
   type: 'title',
-  value: 'Hello from JS world'
+  value: 'Constructor to page on Pure JavaScritp',
+  options: {
+    tag: 'h2',
+    styles: 'background: linear-gradient(to right, #ff0099, #493240); color: #fff; text-align: center; padding: 1.5rem;'
+  }
 }, {
   type: 'text',
   value: 'Here we go with some text'
@@ -155,7 +159,8 @@ exports.row = row;
 exports.col = col;
 
 function row(content) {
-  return "<div class=\"row\">".concat(content, "</div>");
+  var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  return "<div class=\"row\" style=\"".concat(style, "\">").concat(content, "</div>");
 }
 
 function col(content) {
@@ -172,7 +177,9 @@ exports.templates = void 0;
 var _utils = require("./utils");
 
 function title(block) {
-  return (0, _utils.row)((0, _utils.col)("<h1>".concat(block.value, "</h1>")));
+  var tag = block.options.tag;
+  var styles = block.options.styles;
+  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")), styles);
 }
 
 function text(block) {
@@ -180,10 +187,8 @@ function text(block) {
 }
 
 function column(block) {
-  var html = block.value.map(function (el) {
-    return (0, _utils.col)(el);
-  });
-  return (0, _utils.row)(html.join(''));
+  var html = block.value.map(_utils.col).join('');
+  return (0, _utils.row)(html);
 }
 
 function img(block) {
@@ -315,7 +320,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49551" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56798" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
