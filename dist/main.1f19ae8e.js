@@ -128,6 +128,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.row = row;
 exports.col = col;
 exports.css = css;
+exports.block = block;
 
 function row(content) {
   var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -147,6 +148,10 @@ function css() {
   };
 
   return Object.keys(styles).map(toString).join(';');
+}
+
+function block(type) {
+  return "\n        <form name=\"".concat(type, "\">\n            <h5>").concat(type, "</h5>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"value\" placeholder=\"value\">\n            </div>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"styles\" placeholder=\"styles\">\n            </div>\n            <button type=\"submit\" class=\"btn btn-primary btn-sm\">Add</button>\n        </form>\n        <hr/>\n    ");
 }
 },{}],"classes/blocks.js":[function(require,module,exports) {
 "use strict";
@@ -462,8 +467,9 @@ exports.Site = Site;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.block = block;
 exports.Sidebar = void 0;
+
+var _utils = require("../utils");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -482,12 +488,18 @@ var Sidebar = /*#__PURE__*/function () {
   _createClass(Sidebar, [{
     key: "init",
     value: function init() {
-      return this.$el.insertAdjacentHTML('afterbegin', this.template);
+      this.$el.insertAdjacentHTML('afterbegin', this.template);
+      this.$el.addEventListener('submit', this.add);
+    }
+  }, {
+    key: "add",
+    value: function add(event) {
+      event.preventDefault();
     }
   }, {
     key: "template",
     get: function get() {
-      return block("text");
+      return [(0, _utils.block)("text"), (0, _utils.block)('title')].join('');
     }
   }]);
 
@@ -495,11 +507,7 @@ var Sidebar = /*#__PURE__*/function () {
 }();
 
 exports.Sidebar = Sidebar;
-
-function block(type) {
-  return "\n        <form name=\"".concat(type, "\">\n            <h5>").concat(type, "</h5>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"value\" placeholder=\"value\">\n            </div>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"styles\" placeholder=\"styles\">\n            </div>\n            <button type=\"submit\" class=\"btn btn-primary btn-sm\">Add</button>\n        </form>\n        <hr/>\n    ");
-}
-},{}],"main.js":[function(require,module,exports) {
+},{"../utils":"utils.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _model = require("./model");
