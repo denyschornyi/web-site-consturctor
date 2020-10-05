@@ -471,6 +471,8 @@ exports.Sidebar = void 0;
 
 var _utils = require("../utils");
 
+var _blocks = require("./blocks");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -498,6 +500,19 @@ var Sidebar = /*#__PURE__*/function () {
       var type = event.target.name;
       var value = event.target.value.value;
       var styles = event.target.styles.value;
+      var newBlock;
+
+      if (type === 'title') {
+        newBlock = new _blocks.TitleBlock(value, {
+          styles: styles
+        });
+      } else if (type === 'text') {
+        newBlock = new _blocks.TextBlock(value, {
+          styles: styles
+        });
+      }
+
+      console.log(newBlock);
     }
   }, {
     key: "template",
@@ -510,7 +525,7 @@ var Sidebar = /*#__PURE__*/function () {
 }();
 
 exports.Sidebar = Sidebar;
-},{"../utils":"utils.js"}],"main.js":[function(require,module,exports) {
+},{"../utils":"utils.js","./blocks":"classes/blocks.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _model = require("./model");
