@@ -456,6 +456,49 @@ var Site = /*#__PURE__*/function () {
 }();
 
 exports.Site = Site;
+},{}],"classes/sidebar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.block = block;
+exports.Sidebar = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Sidebar = /*#__PURE__*/function () {
+  function Sidebar(selector) {
+    _classCallCheck(this, Sidebar);
+
+    this.$el = document.querySelector(selector);
+    this.init();
+  }
+
+  _createClass(Sidebar, [{
+    key: "init",
+    value: function init() {
+      return this.$el.insertAdjacentHTML('afterbegin', this.template);
+    }
+  }, {
+    key: "template",
+    get: function get() {
+      return block("text");
+    }
+  }]);
+
+  return Sidebar;
+}();
+
+exports.Sidebar = Sidebar;
+
+function block(type) {
+  return "\n        <form name=\"".concat(type, "\">\n            <h5>").concat(type, "</h5>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"value\" placeholder=\"value\">\n            </div>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"styles\" placeholder=\"styles\">\n            </div>\n            <button type=\"submit\" class=\"btn btn-primary btn-sm\">Add</button>\n        </form>\n        <hr/>\n    ");
+}
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
@@ -465,9 +508,12 @@ require("./styles/main.css");
 
 var _site = require("./classes/site");
 
+var _sidebar = require("./classes/sidebar");
+
 var site = new _site.Site('#site');
 site.render(_model.model);
-},{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/site":"classes/site.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var sidebar = new _sidebar.Sidebar('#panel');
+},{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/site":"classes/site.js","./classes/sidebar":"classes/sidebar.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
