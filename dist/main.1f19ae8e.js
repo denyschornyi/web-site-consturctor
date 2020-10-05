@@ -119,6 +119,35 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"assets/img.png":[function(require,module,exports) {
 module.exports = "/img.cee0b723.png";
+},{}],"utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.row = row;
+exports.col = col;
+exports.css = css;
+
+function row(content) {
+  var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  return "<div class=\"row\" style=\"".concat(style, "\">").concat(content, "</div>");
+}
+
+function col(content) {
+  var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  return "<div class=\"col-sm\" style=".concat(style, ">").concat(content, "</div>");
+}
+
+function css() {
+  var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var toString = function toString(key) {
+    return "".concat(key, ": ").concat(styles[key]);
+  };
+
+  return Object.keys(styles).map(toString).join(';');
+}
 },{}],"classes/blocks.js":[function(require,module,exports) {
 "use strict";
 
@@ -126,6 +155,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.ColumnBlock = exports.TextBlock = exports.ImgBlock = exports.TitleBlock = void 0;
+
+var _utils = require("../utils");
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -145,13 +176,28 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Block = function Block(type, value, options) {
-  _classCallCheck(this, Block);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  this.type = type;
-  this.value = value;
-  this.options = options;
-};
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Block = /*#__PURE__*/function () {
+  function Block(type, value, options) {
+    _classCallCheck(this, Block);
+
+    this.type = type;
+    this.value = value;
+    this.options = options;
+  }
+
+  _createClass(Block, [{
+    key: "toHTML",
+    value: function toHTML() {
+      throw new Error('Method toHtml should be realized');
+    }
+  }]);
+
+  return Block;
+}();
 
 var TitleBlock = /*#__PURE__*/function (_Block) {
   _inherits(TitleBlock, _Block);
@@ -163,6 +209,17 @@ var TitleBlock = /*#__PURE__*/function (_Block) {
 
     return _super.call(this, 'title', value, options);
   }
+
+  _createClass(TitleBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var _this$options = this.options,
+          _this$options$tag = _this$options.tag,
+          tag = _this$options$tag === void 0 ? 'h1' : _this$options$tag,
+          styles = _this$options.styles;
+      return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(this.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
+    }
+  }]);
 
   return TitleBlock;
 }(Block);
@@ -180,6 +237,17 @@ var ImgBlock = /*#__PURE__*/function (_Block2) {
     return _super2.call(this, 'img', value, options);
   }
 
+  _createClass(ImgBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var _this$options2 = this.options,
+          _this$options2$tag = _this$options2.tag,
+          tag = _this$options2$tag === void 0 ? 'h1' : _this$options2$tag,
+          styles = _this$options2.styles;
+      return (0, _utils.row)("<".concat(tag, " src=\"").concat(this.value, "\" alt=\"img\" />"), (0, _utils.css)(styles));
+    }
+  }]);
+
   return ImgBlock;
 }(Block);
 
@@ -195,6 +263,17 @@ var TextBlock = /*#__PURE__*/function (_Block3) {
 
     return _super3.call(this, 'text', value, options);
   }
+
+  _createClass(TextBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var _this$options3 = this.options,
+          _this$options3$tag = _this$options3.tag,
+          tag = _this$options3$tag === void 0 ? 'p' : _this$options3$tag,
+          styles = _this$options3.styles;
+      return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(this.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
+    }
+  }]);
 
   return TextBlock;
 }(Block);
@@ -212,11 +291,20 @@ var ColumnBlock = /*#__PURE__*/function (_Block4) {
     return _super4.call(this, 'column', value, options);
   }
 
+  _createClass(ColumnBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var styles = this.options.styles;
+      var html = this.value.map(_utils.col).join('');
+      return (0, _utils.row)(html, (0, _utils.css)(styles));
+    }
+  }]);
+
   return ColumnBlock;
 }(Block);
 
 exports.ColumnBlock = ColumnBlock;
-},{}],"model.js":[function(require,module,exports) {
+},{"../utils":"utils.js"}],"model.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -261,83 +349,7 @@ var model = [new _blocks.TitleBlock('Constructor to page on Pure JavaScritp', {
   }
 })];
 exports.model = model;
-},{"./assets/img.png":"assets/img.png","./classes/blocks":"classes/blocks.js"}],"utils.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.row = row;
-exports.col = col;
-exports.css = css;
-
-function row(content) {
-  var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  return "<div class=\"row\" style=\"".concat(style, "\">").concat(content, "</div>");
-}
-
-function col(content) {
-  var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  return "<div class=\"col-sm\" style=".concat(style, ">").concat(content, "</div>");
-}
-
-function css() {
-  var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-  var toString = function toString(key) {
-    return "".concat(key, ": ").concat(styles[key]);
-  };
-
-  return Object.keys(styles).map(toString).join(';');
-}
-},{}],"templates.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.templates = void 0;
-
-var _utils = require("./utils");
-
-function title(block) {
-  var _block$options = block.options,
-      _block$options$tag = _block$options.tag,
-      tag = _block$options$tag === void 0 ? 'h1' : _block$options$tag,
-      styles = _block$options.styles;
-  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
-}
-
-function text(block) {
-  var _block$options2 = block.options,
-      _block$options2$tag = _block$options2.tag,
-      tag = _block$options2$tag === void 0 ? 'p' : _block$options2$tag,
-      styles = _block$options2.styles;
-  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
-}
-
-function column(block) {
-  var styles = block.options.styles;
-  var html = block.value.map(_utils.col).join('');
-  return (0, _utils.row)(html, (0, _utils.css)(styles));
-}
-
-function img(block) {
-  var _block$options3 = block.options,
-      _block$options3$tag = _block$options3.tag,
-      tag = _block$options3$tag === void 0 ? 'h1' : _block$options3$tag,
-      styles = _block$options3.styles;
-  return (0, _utils.row)("<".concat(tag, " src=\"").concat(block.value, "\" alt=\"img\" />"), (0, _utils.css)(styles));
-}
-
-var templates = {
-  title: title,
-  text: text,
-  column: column,
-  img: img
-};
-exports.templates = templates;
-},{"./utils":"utils.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./assets/img.png":"assets/img.png","./classes/blocks":"classes/blocks.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -414,20 +426,14 @@ module.hot.accept(reloadCSS);
 
 var _model = require("./model");
 
-var _templates = require("./templates");
-
 require("./styles/main.css");
 
 var $site = document.querySelector('#site');
 
 _model.model.forEach(function (block) {
-  var toHtml = _templates.templates[block.type](block);
-
-  if (toHtml) {
-    $site.insertAdjacentHTML('beforeend', toHtml);
-  }
+  $site.insertAdjacentHTML('beforeend', block.toHTML());
 });
-},{"./model":"model.js","./templates":"templates.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./model":"model.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
