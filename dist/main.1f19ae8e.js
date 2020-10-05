@@ -119,6 +119,25 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"assets/img.png":[function(require,module,exports) {
 module.exports = "/img.cee0b723.png";
+},{}],"classes/blocks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Block = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Block = function Block(type, value, options) {
+  _classCallCheck(this, Block);
+
+  this.type = type;
+  this.value = value;
+  this.options = options;
+};
+
+exports.Block = Block;
 },{}],"model.js":[function(require,module,exports) {
 "use strict";
 
@@ -129,56 +148,42 @@ exports.model = void 0;
 
 var _img = _interopRequireDefault(require("./assets/img.png"));
 
+var _blocks = require("./classes/blocks");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var model = [{
-  type: 'title',
-  value: 'Constructor to page on Pure JavaScritp',
-  options: {
-    tag: 'h2',
-    styles: {
-      background: "linear-gradient(to right, #ff0099, #493240)",
-      color: '#fff',
-      padding: '1.5rem',
-      'text-align': 'center'
-    }
+var model = [new _blocks.Block('title', 'Constructor to page on Pure JavaScritp', {
+  tag: 'h2',
+  styles: {
+    background: "linear-gradient(to right, #ff0099, #493240)",
+    color: '#fff',
+    padding: '1.5rem',
+    'text-align': 'center'
   }
-}, {
-  type: 'img',
-  value: _img.default,
-  options: {
-    tag: 'img',
-    styles: {
-      padding: '2rem 0',
-      display: 'flex',
-      'justify-content': 'center'
-    }
+}), new _blocks.Block('img', _img.default, {
+  tag: 'img',
+  styles: {
+    padding: '2rem 0',
+    display: 'flex',
+    'justify-content': 'center'
   }
-}, {
-  type: 'text',
-  value: 'Here we go with some text',
-  options: {
-    tag: 'p',
-    styles: {
-      background: 'linear-gradient(to left, #f2994a, #f2c94c)',
-      padding: '1rem',
-      'font-weight': 'bold'
-    }
+}), new _blocks.Block('text', 'Here we go with some text', {
+  tag: 'p',
+  styles: {
+    background: 'linear-gradient(to left, #f2994a, #f2c94c)',
+    padding: '1rem',
+    'font-weight': 'bold'
   }
-}, {
-  type: 'column',
-  value: ['App using only pure Javascript, no frameworks', 'Using SOLID and OOP prynciples in same App', 'JavaScript is interesting'],
-  options: {
-    styles: {
-      background: "linear-gradient(to bottom, #8e2de2, #4a00e0)",
-      padding: '2rem',
-      color: "#fff",
-      'font-weight': 'bold'
-    }
+}), new _blocks.Block('column', ['App using only pure Javascript, no frameworks', 'Using SOLID and OOP prynciples in same App', 'JavaScript is interesting'], {
+  styles: {
+    background: "linear-gradient(to bottom, #8e2de2, #4a00e0)",
+    padding: '2rem',
+    color: "#fff",
+    'font-weight': 'bold'
   }
-}];
+})];
 exports.model = model;
-},{"./assets/img.png":"assets/img.png"}],"utils.js":[function(require,module,exports) {
+},{"./assets/img.png":"assets/img.png","./classes/blocks":"classes/blocks.js"}],"utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
