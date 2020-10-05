@@ -16,5 +16,10 @@ export class Sidebar{
 
     add(event){
         event.preventDefault();
+
+        const type = event.target.name;
+        const value = event.target.value.value;
+        const styles = event.target.styles.value;
+
     }
 }

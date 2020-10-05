@@ -495,6 +495,9 @@ var Sidebar = /*#__PURE__*/function () {
     key: "add",
     value: function add(event) {
       event.preventDefault();
+      var type = event.target.name;
+      var value = event.target.value.value;
+      var styles = event.target.styles.value;
     }
   }, {
     key: "template",
