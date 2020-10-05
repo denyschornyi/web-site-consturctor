@@ -500,18 +500,11 @@ var Sidebar = /*#__PURE__*/function () {
       var type = event.target.name;
       var value = event.target.value.value;
       var styles = event.target.styles.value;
-      var newBlock;
-
-      if (type === 'title') {
-        newBlock = new _blocks.TitleBlock(value, {
-          styles: styles
-        });
-      } else if (type === 'text') {
-        newBlock = new _blocks.TextBlock(value, {
-          styles: styles
-        });
-      }
-
+      var newBlock = type === 'title' ? new _blocks.TitleBlock(value, {
+        styles: styles
+      }) : new _blocks.TextBlock(value, {
+        styles: styles
+      });
       console.log(newBlock);
     }
   }, {

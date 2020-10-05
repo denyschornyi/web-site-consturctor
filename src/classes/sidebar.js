@@ -22,13 +22,9 @@ export class Sidebar{
         const value = event.target.value.value;
         const styles = event.target.styles.value;
 
-        let newBlock
-
-        if(type === 'title'){
-            newBlock = new TitleBlock(value, {styles});
-        }else if(type === 'text'){
-            newBlock = new TextBlock(value, {styles});
-        }
+        let newBlock = type === 'title' 
+            ? new TitleBlock(value, {styles})
+            : new TextBlock(value, {styles});
 
         console.log(newBlock);
     }
