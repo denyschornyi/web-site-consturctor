@@ -523,28 +523,64 @@ var Sidebar = /*#__PURE__*/function () {
 }();
 
 exports.Sidebar = Sidebar;
-},{"../utils":"utils.js","./blocks":"classes/blocks.js"}],"main.js":[function(require,module,exports) {
+},{"../utils":"utils.js","./blocks":"classes/blocks.js"}],"classes/app.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.App = void 0;
+
+var _site = require("./site");
+
+var _sidebar = require("./sidebar");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var App = /*#__PURE__*/function () {
+  function App(model) {
+    _classCallCheck(this, App);
+
+    this.model = model;
+  }
+
+  _createClass(App, [{
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      var site = new _site.Site('#site');
+      site.render(this.model);
+
+      var updateCallback = function updateCallback(newBlock) {
+        _this.model.push(newBlock);
+
+        site.render(_this.model);
+      };
+
+      new _sidebar.Sidebar('#panel', updateCallback);
+    }
+  }]);
+
+  return App;
+}();
+
+exports.App = App;
+},{"./site":"classes/site.js","./sidebar":"classes/sidebar.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _model = require("./model");
 
 require("./styles/main.css");
 
-var _site = require("./classes/site");
+var _app = require("./classes/app");
 
-var _sidebar = require("./classes/sidebar");
-
-var site = new _site.Site('#site');
-site.render(_model.model);
-
-var updateCallback = function updateCallback(newBlock) {
-  _model.model.push(newBlock);
-
-  site.render(_model.model);
-};
-
-new _sidebar.Sidebar('#panel', updateCallback);
-},{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/site":"classes/site.js","./classes/sidebar":"classes/sidebar.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+new _app.App(_model.model).init();
+},{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/app":"classes/app.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
