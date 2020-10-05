@@ -181,10 +181,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Block = /*#__PURE__*/function () {
-  function Block(type, value, options) {
+  function Block(value, options) {
     _classCallCheck(this, Block);
 
-    this.type = type;
     this.value = value;
     this.options = options;
   }
@@ -207,7 +206,7 @@ var TitleBlock = /*#__PURE__*/function (_Block) {
   function TitleBlock(value, options) {
     _classCallCheck(this, TitleBlock);
 
-    return _super.call(this, 'title', value, options);
+    return _super.call(this, value, options);
   }
 
   _createClass(TitleBlock, [{
@@ -234,7 +233,7 @@ var ImgBlock = /*#__PURE__*/function (_Block2) {
   function ImgBlock(value, options) {
     _classCallCheck(this, ImgBlock);
 
-    return _super2.call(this, 'img', value, options);
+    return _super2.call(this, value, options);
   }
 
   _createClass(ImgBlock, [{
@@ -261,7 +260,7 @@ var TextBlock = /*#__PURE__*/function (_Block3) {
   function TextBlock(value, options) {
     _classCallCheck(this, TextBlock);
 
-    return _super3.call(this, 'text', value, options);
+    return _super3.call(this, value, options);
   }
 
   _createClass(TextBlock, [{
@@ -288,7 +287,7 @@ var ColumnBlock = /*#__PURE__*/function (_Block4) {
   function ColumnBlock(value, options) {
     _classCallCheck(this, ColumnBlock);
 
-    return _super4.call(this, 'column', value, options);
+    return _super4.call(this, value, options);
   }
 
   _createClass(ColumnBlock, [{
@@ -421,19 +420,54 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"main.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"classes/site.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Site = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Site = /*#__PURE__*/function () {
+  function Site(selector) {
+    _classCallCheck(this, Site);
+
+    this.$el = document.querySelector(selector);
+  }
+
+  _createClass(Site, [{
+    key: "render",
+    value: function render(model) {
+      var _this = this;
+
+      model.forEach(function (block) {
+        _this.$el.insertAdjacentHTML('beforeend', block.toHTML());
+      });
+    }
+  }]);
+
+  return Site;
+}();
+
+exports.Site = Site;
+},{}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _model = require("./model");
 
 require("./styles/main.css");
 
-var $site = document.querySelector('#site');
+var _site = require("./classes/site");
 
-_model.model.forEach(function (block) {
-  $site.insertAdjacentHTML('beforeend', block.toHTML());
-});
-},{"./model":"model.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var site = new _site.Site('#site');
+site.render(_model.model);
+},{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/site":"classes/site.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
