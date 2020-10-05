@@ -1,9 +1,9 @@
 import image from './assets/img.png';
-import {Block} from './classes/blocks';
+import {TitleBlock, ImgBlock, TextBlock, ColumnBlock} from './classes/blocks';
 
 
 export const model = [
-    new Block('title', 'Constructor to page on Pure JavaScritp', {
+    new TitleBlock('Constructor to page on Pure JavaScritp', {
         tag: 'h2',
         styles: {
             background: "linear-gradient(to right, #ff0099, #493240)",
@@ -13,7 +13,7 @@ export const model = [
         }
     }),
 
-    new Block('img', image,  {
+    new ImgBlock(image,  {
         tag: 'img',
         styles: {
             padding: '2rem 0',
@@ -21,7 +21,7 @@ export const model = [
             'justify-content': 'center'
         }
     }),
-    new Block('text', 'Here we go with some text', {
+    new TextBlock('Here we go with some text', {
         tag: 'p',
         styles: {
             background: 'linear-gradient(to left, #f2994a, #f2c94c)',
@@ -30,7 +30,7 @@ export const model = [
         }
     }),
 
-    new Block('column', [
+    new ColumnBlock([
         'App using only pure Javascript, no frameworks',
         'Using SOLID and OOP prynciples in same App',
         'JavaScript is interesting'

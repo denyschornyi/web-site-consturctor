@@ -125,7 +125,23 @@ module.exports = "/img.cee0b723.png";
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Block = void 0;
+exports.ColumnBlock = exports.TextBlock = exports.ImgBlock = exports.TitleBlock = void 0;
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -137,7 +153,69 @@ var Block = function Block(type, value, options) {
   this.options = options;
 };
 
-exports.Block = Block;
+var TitleBlock = /*#__PURE__*/function (_Block) {
+  _inherits(TitleBlock, _Block);
+
+  var _super = _createSuper(TitleBlock);
+
+  function TitleBlock(value, options) {
+    _classCallCheck(this, TitleBlock);
+
+    return _super.call(this, 'title', value, options);
+  }
+
+  return TitleBlock;
+}(Block);
+
+exports.TitleBlock = TitleBlock;
+
+var ImgBlock = /*#__PURE__*/function (_Block2) {
+  _inherits(ImgBlock, _Block2);
+
+  var _super2 = _createSuper(ImgBlock);
+
+  function ImgBlock(value, options) {
+    _classCallCheck(this, ImgBlock);
+
+    return _super2.call(this, 'img', value, options);
+  }
+
+  return ImgBlock;
+}(Block);
+
+exports.ImgBlock = ImgBlock;
+
+var TextBlock = /*#__PURE__*/function (_Block3) {
+  _inherits(TextBlock, _Block3);
+
+  var _super3 = _createSuper(TextBlock);
+
+  function TextBlock(value, options) {
+    _classCallCheck(this, TextBlock);
+
+    return _super3.call(this, 'text', value, options);
+  }
+
+  return TextBlock;
+}(Block);
+
+exports.TextBlock = TextBlock;
+
+var ColumnBlock = /*#__PURE__*/function (_Block4) {
+  _inherits(ColumnBlock, _Block4);
+
+  var _super4 = _createSuper(ColumnBlock);
+
+  function ColumnBlock(value, options) {
+    _classCallCheck(this, ColumnBlock);
+
+    return _super4.call(this, 'column', value, options);
+  }
+
+  return ColumnBlock;
+}(Block);
+
+exports.ColumnBlock = ColumnBlock;
 },{}],"model.js":[function(require,module,exports) {
 "use strict";
 
@@ -152,7 +230,7 @@ var _blocks = require("./classes/blocks");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var model = [new _blocks.Block('title', 'Constructor to page on Pure JavaScritp', {
+var model = [new _blocks.TitleBlock('Constructor to page on Pure JavaScritp', {
   tag: 'h2',
   styles: {
     background: "linear-gradient(to right, #ff0099, #493240)",
@@ -160,21 +238,21 @@ var model = [new _blocks.Block('title', 'Constructor to page on Pure JavaScritp'
     padding: '1.5rem',
     'text-align': 'center'
   }
-}), new _blocks.Block('img', _img.default, {
+}), new _blocks.ImgBlock(_img.default, {
   tag: 'img',
   styles: {
     padding: '2rem 0',
     display: 'flex',
     'justify-content': 'center'
   }
-}), new _blocks.Block('text', 'Here we go with some text', {
+}), new _blocks.TextBlock('Here we go with some text', {
   tag: 'p',
   styles: {
     background: 'linear-gradient(to left, #f2994a, #f2c94c)',
     padding: '1rem',
     'font-weight': 'bold'
   }
-}), new _blocks.Block('column', ['App using only pure Javascript, no frameworks', 'Using SOLID and OOP prynciples in same App', 'JavaScript is interesting'], {
+}), new _blocks.ColumnBlock(['App using only pure Javascript, no frameworks', 'Using SOLID and OOP prynciples in same App', 'JavaScript is interesting'], {
   styles: {
     background: "linear-gradient(to bottom, #8e2de2, #4a00e0)",
     padding: '2rem',
