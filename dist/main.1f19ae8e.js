@@ -142,6 +142,7 @@ function col(content) {
 
 function css() {
   var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  if (typeof styles === 'string') return styles;
 
   var toString = function toString(key) {
     return "".concat(key, ": ").concat(styles[key]);
@@ -451,6 +452,7 @@ var Site = /*#__PURE__*/function () {
     value: function render(model) {
       var _this = this;
 
+      this.$el.innerHTML = '';
       model.forEach(function (block) {
         _this.$el.insertAdjacentHTML('beforeend', block.toHTML());
       });
@@ -480,10 +482,11 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Sidebar = /*#__PURE__*/function () {
-  function Sidebar(selector) {
+  function Sidebar(selector, updateCallback) {
     _classCallCheck(this, Sidebar);
 
     this.$el = document.querySelector(selector);
+    this.update = updateCallback;
     this.init();
   }
 
@@ -491,7 +494,7 @@ var Sidebar = /*#__PURE__*/function () {
     key: "init",
     value: function init() {
       this.$el.insertAdjacentHTML('afterbegin', this.template);
-      this.$el.addEventListener('submit', this.add);
+      this.$el.addEventListener('submit', this.add.bind(this));
     }
   }, {
     key: "add",
@@ -505,7 +508,9 @@ var Sidebar = /*#__PURE__*/function () {
       }) : new _blocks.TextBlock(value, {
         styles: styles
       });
-      console.log(newBlock);
+      this.update(newBlock);
+      event.target.value.value = '';
+      event.target.styles.value = '';
     }
   }, {
     key: "template",
@@ -531,7 +536,14 @@ var _sidebar = require("./classes/sidebar");
 
 var site = new _site.Site('#site');
 site.render(_model.model);
-var sidebar = new _sidebar.Sidebar('#panel');
+
+var updateCallback = function updateCallback(newBlock) {
+  _model.model.push(newBlock);
+
+  site.render(_model.model);
+};
+
+new _sidebar.Sidebar('#panel', updateCallback);
 },{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/site":"classes/site.js","./classes/sidebar":"classes/sidebar.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
